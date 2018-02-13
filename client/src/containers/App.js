@@ -7,6 +7,7 @@ import * as actions from '../actions';
 import Header from './Header';
 import Landing from './Landing';
 import Sightings from './Sightings';
+import SightingNew from './SightingNew';
 
 class App extends Component {
   componentDidMount() {
@@ -21,6 +22,7 @@ class App extends Component {
             <Header />
             <Route exact path="/" component={Landing} />
             <Route exact path="/sightings" component={Sightings} />
+            <Route path="/sightings/new" component={SightingNew} />
           </div>
         </BrowserRouter>
       </div>
