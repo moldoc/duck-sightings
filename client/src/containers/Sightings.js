@@ -5,6 +5,10 @@ import _ from 'lodash';
 import { fetchSightings } from '../actions';
 
 class Sightings extends Component {
+  componentDidMount() {
+    this.props.fetchSightings();
+  }
+
   renderSightings(sightingData) {
     const id = sightingData.id;
     const species = sightingData.species;
@@ -19,15 +23,8 @@ class Sightings extends Component {
         <td>{count}</td>
       </tr>
     );
-    // For every sighting id, return its description in a list
-    //return _.map(this.props.sightings, sighting => {
-    //  return (
-    //    <li key={sighting.id}>
-    //      <p>{sighting.description}</p>
-    //    </li>
-    //  );
-    //  });
   }
+
   render() {
     return (
       <table>
@@ -41,10 +38,6 @@ class Sightings extends Component {
         </thead>
         <tbody>{this.props.sightings.map(this.renderSightings)}</tbody>
       </table>
-      //<div style={{ textAlign: 'center' }}>
-      //<h3>Havainnot</h3>
-      //<ul>{this.renderSightings()}</ul>
-      //</div>
     );
   }
 }

@@ -10,11 +10,13 @@ export const fetchSightings = () => async dispatch => {
   dispatch({ type: FETCH_SIGHTINGS, payload: res.data });
 };
 
-// Values will contain the new sighting
-export const createSighting = (values, history) => async dispatch => {
-  const res = await axios.post('/sightings', values);
+export function createSighting(values, callback) {
+  // After the API request has been successfully completed, execute the function
+  // that calls the callback we passed in
+  const request = axios.post('/sightings', values).then(() => callback());
 
-  history.push('/surveys');
-
-  dispatch({ type: CREATE_SIGHTING, payload: res.data });
-};
+  return {
+    type: CREATE_SIGHTING,
+    payload: request
+  };
+}
