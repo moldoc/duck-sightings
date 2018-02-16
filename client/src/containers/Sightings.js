@@ -5,8 +5,36 @@ import _ from 'lodash';
 import { fetchSightings } from '../actions';
 
 class Sightings extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: this.props.sightings
+    };
+
+    this.compareBy.bind(this);
+    this.sortBy.bind(this);
+  }
+
+  compareBy(key) {
+    return function(a, b) {
+      if (a[key] < b[key]) return -1;
+      if (a[key] > b[key]) return 1;
+      return 0;
+    };
+  }
+
+  sortBy(key) {
+    let arrayCopy = [...this.state.data];
+    arrayCopy.sort(this.compareBy(key));
+    this.setState({ data: arrayCopy }, function() {
+      this.forceUpdate();
+    });
+  }
+
   componentDidMount() {
-    this.props.fetchSightings();
+    this.props.fetchSightings().then(() => {
+      this.setState({ data: this.props.sightings });
+    });
   }
 
   renderSightings(sightingData) {
@@ -26,18 +54,22 @@ class Sightings extends Component {
   }
 
   render() {
+    const rows = this.state.data.map(this.renderSightings);
+
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Species</th>
-            <th>Description</th>
-            <th>Date and time</th>
-            <th>Count</th>
-          </tr>
-        </thead>
-        <tbody>{this.props.sightings.map(this.renderSightings)}</tbody>
-      </table>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th onClick={() => this.sortBy('species')}>Title</th>
+              <th onClick={() => this.sortBy('description')}>Description</th>
+              <th onClick={() => this.sortBy('dateTime')}>Date and Time</th>
+              <th onClick={() => this.sortBy('count')}>Count</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </table>
+      </div>
     );
   }
 }
