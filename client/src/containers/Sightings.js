@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import { fetchSightings } from '../actions';
 
@@ -8,32 +7,35 @@ class Sightings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: this.props.sightings
+      sightings: this.props.sightings
     };
 
-    this.compareBy.bind(this);
-    this.sortBy.bind(this);
-  }
-
-  compareBy(key) {
-    return function(a, b) {
-      if (a[key] < b[key]) return -1;
-      if (a[key] > b[key]) return 1;
-      return 0;
-    };
-  }
-
-  sortBy(key) {
-    let arrayCopy = [...this.state.data];
-    arrayCopy.sort(this.compareBy(key));
-    this.setState({ data: arrayCopy }, function() {
-      this.forceUpdate();
-    });
+    this.compareDates.bind(this);
+    this.sortDates.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchSightings().then(() => {
-      this.setState({ data: this.props.sightings });
+      this.setState({ sightings: this.props.sightings });
+    });
+  }
+
+  compareDates() {
+    return function(a, b) {
+      if (a['dateTime'] < b['dateTime']) return -1;
+      if (a['dateTime'] > b['dateTime']) return 1;
+      return 0;
+    };
+  }
+
+  sortDates(ascending) {
+    let arrayCopy = [...this.state.sightings];
+    arrayCopy.sort(this.compareDates());
+    if (!ascending) {
+      arrayCopy.reverse();
+    }
+    this.setState({ sightings: arrayCopy }, () => {
+      this.forceUpdate();
     });
   }
 
@@ -54,17 +56,24 @@ class Sightings extends Component {
   }
 
   render() {
-    const rows = this.state.data.map(this.renderSightings);
+    const rows = this.state.sightings.map(this.renderSightings);
 
     return (
       <div>
         <table>
           <thead>
             <tr>
-              <th onClick={() => this.sortBy('species')}>Title</th>
-              <th onClick={() => this.sortBy('description')}>Description</th>
-              <th onClick={() => this.sortBy('dateTime')}>Date and Time</th>
-              <th onClick={() => this.sortBy('count')}>Count</th>
+              <th>Species</th>
+              <th>Description</th>
+              <th>
+                Date and Time<a onClick={() => this.sortDates(true)}>
+                  <i className="material-icons">arrow_drop_up</i>
+                </a>
+                <a onClick={() => this.sortDates(false)}>
+                  <i className="material-icons">arrow_drop_down</i>
+                </a>
+              </th>
+              <th>Count</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>
