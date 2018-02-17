@@ -5,6 +5,9 @@
   "proxy": {
     "/sightings": {
       "target": "http://localhost:8081"
+    },
+    "/species": {
+      "target": "http://localhost:8081"
     }
   },
   "dependencies": {
