@@ -5,7 +5,12 @@ export default class Landing extends Component {
   render() {
     return (
       <div style={{ textAlign: 'center' }}>
-        <p>Welcome to the duck sighting app.</p>
+        <p>
+          Welcome to the duck sighting app.<br/>
+          With this app you can either add new duck sightings or list all sightings.<br/>
+          Click either of the buttons below to get started!
+        </p>
+
         <Link
           to={'/sightings/new'}
           style={{ marginRight: '20px' }}
