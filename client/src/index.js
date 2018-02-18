@@ -7,8 +7,9 @@ import { Provider } from 'react-redux';
 
 import App from './containers/App';
 import reducers from './reducers';
-//import registerServiceWorker from './registerServiceWorker';
-//registerServiceWorker();
+import registerServiceWorker from './registerServiceWorker';
+
+registerServiceWorker();
 
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 

@@ -15,6 +15,8 @@ class Sightings extends Component {
   }
 
   componentDidMount() {
+    // After the component has mounted, fetch the sightings and update
+    // state in case the user added new sightings
     this.props.fetchSightings().then(() => {
       this.setState({ sightings: this.props.sightings });
     });
@@ -28,6 +30,8 @@ class Sightings extends Component {
     };
   }
 
+  // Asceding is a boolean that determines whether the sightings will be given
+  // in descending or ascending order by date
   sortDates(ascending) {
     let arrayCopy = [...this.state.sightings];
     arrayCopy.sort(this.compareDates());
