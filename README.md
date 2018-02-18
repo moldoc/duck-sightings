@@ -3,7 +3,7 @@
 This app allows you to list the duck sightings from the backend, as well
 as add your own sightings. If you add a new sighting, it will be added to the list.
 Please note that this app doesn't use a database, which means that any sightings
-that you add will be lost once you refresh the page.
+that you add will be lost when the server is restarted.
 
 ## Requirements
 
