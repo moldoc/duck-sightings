@@ -26,6 +26,7 @@ To run both backend and frontend simultaneously, run
 ```
 $ npm run dev
 ```
+The backend uses port 8081 and front end port 3000.
 
 # Duck backend
 
@@ -51,4 +52,4 @@ or if you want to run server in some other port than default 8081
 $ PORT=<port> node server.js
 ```
 
-where you should replace `<port>` with wanted port number i.e. 3000.
+where you should replace `<port>` with wanted port number
