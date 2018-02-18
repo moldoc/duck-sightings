@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import * as moment from 'moment';
 
 import { createSighting, fetchSpecies } from '../actions';
 
@@ -49,7 +49,7 @@ class SightingNew extends Component {
           component={this.renderField}
         />
         <Field
-          label="Date and time (DD.MM.YY HH:II)"
+          label="Date and time (ISO 8601 format e.g. 2017-12-10T15:07:00Z)"
           name="dateTime"
           component={this.renderField}
         />
@@ -97,14 +97,16 @@ function validate(values) {
     errors.dateTime = 'Enter a date and a time!';
   }
 
-  const dateTimeRegex = /^(([0-2]?[0-9]|3[0-1])[.]([0]?[1-9]|1[0-2])[.][1-2]\d{3}) (20|21|22|23|[0-1]?\d{1}):([0-5]?\d{1})$/;
+  const validDate = moment(values.dateTime, moment.ISO_8601).isValid();
 
-  if (!dateTimeRegex.exec(values.dateTime)) {
+  if (!validDate) {
     errors.dateTime = 'Not a proper date time!';
   }
+
   if (!values.count) {
     errors.count = 'Enter a count!';
   }
+
   if (!parseInt(values.count)) {
     errors.count = 'Count must be a number!';
   }
