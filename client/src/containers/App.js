@@ -4,8 +4,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import * as actions from '../actions';
 
-import Header from './Header';
-import Landing from './Landing';
+import Header from '../components/Header';
+import Landing from '../components/Landing';
 import Sightings from './Sightings';
 import SightingNew from './SightingNew';
 
