@@ -14,7 +14,7 @@ Tested with Node.js version 8.9.4 and npm v5.6.0.
 ## Install
 
 ```
-$ git clone https://github.com/vincit/summer-2018.git
+$ git clone https://github.com/moldoc/duck-sightings.git
 $ cd summer-2018
 $ npm install
 ```
